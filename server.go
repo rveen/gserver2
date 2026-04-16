@@ -19,27 +19,22 @@ import (
 	"github.com/rveen/session2"
 )
 
-type contextService interface {
-	GlobalContext(*Server)
-}
-
 type Server struct {
-	Host           string
-	Hosts          []string
-	Config         *ogdl.Graph
-	HostContexts   map[string]*ogdl.Graph
-	Context        *ogdl.Graph
-	Root           *fn.FNode
-	DocRoot        string
-	UploadDir      string
-	DefaultUser    string
-	UserDb         *sql.DB
-	MaxSessions    int
-	Multi          bool
-	ContextService contextService
-	Templates      map[string]*ogdl.Graph
-	ContextMu      sync.RWMutex
-	server         *http.Server
+	Host         string
+	Hosts        []string
+	Config       *ogdl.Graph
+	HostContexts map[string]*ogdl.Graph
+	Context      *ogdl.Graph
+	Root         *fn.FNode
+	DocRoot      string
+	UploadDir    string
+	DefaultUser  string
+	UserDb       *sql.DB
+	MaxSessions  int
+	Multi        bool
+	Templates    map[string]*ogdl.Graph
+	ContextMu    sync.RWMutex
+	server       *http.Server
 }
 
 func NewWithConfig(host string, config, context *ogdl.Graph) (*Server, error) {
@@ -75,6 +70,8 @@ func NewWithConfig(host string, config, context *ogdl.Graph) (*Server, error) {
 
 	srv.Hosts = append(srv.Hosts, srv.Host)
 	srv.InitSessions()
+
+	GlobalContext(&srv)
 
 	return &srv, nil
 }
@@ -125,6 +122,8 @@ func NewMulti() (*Server, error) {
 		log.Println("context loaded for host", name)
 		srv.Hosts = append(srv.Hosts, name)
 	}
+
+	GlobalContext(srv)
 
 	return srv, nil
 }
@@ -187,10 +186,9 @@ func (srv *Server) WatchContext(path string) {
 				srv.ContextMu.Lock()
 				srv.Context = newCtx
 				srv.InitSessions()
+				GlobalContext(srv)
 				srv.ContextMu.Unlock()
-				if srv.ContextService != nil {
-					srv.ContextService.GlobalContext(srv)
-				}
+
 				log.Println("context reloaded from", path)
 			}
 		case err, ok := <-watcher.Errors:

@@ -31,11 +31,9 @@ import (
 	"net/http"
 	"runtime"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/rveen/golib/fn"
 	"github.com/rveen/gserver2"
-	"github.com/rveen/gserver2/context"
-
-	"github.com/go-chi/chi/v5"
 )
 
 func main() {
@@ -67,8 +65,6 @@ func main() {
 		return
 	}
 
-	srv.ContextService = context.ContextService{}
-	srv.ContextService.GlobalContext(srv)
 	go srv.WatchContext(".conf/context.ogdl")
 
 	staticHandler := srv.StaticFileHandler(false, nil)

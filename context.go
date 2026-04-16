@@ -1,4 +1,4 @@
-package context
+package gserver2
 
 import (
 	"github.com/rveen/electronics/etools"
@@ -8,17 +8,14 @@ import (
 	"github.com/rveen/golib/gosql"
 	"github.com/rveen/golib/html"
 	str "github.com/rveen/golib/strings"
-	"github.com/rveen/gserver2"
 	"github.com/rveen/ogdl"
 
 	"log"
 	"strings"
 )
 
-type ContextService struct{}
-
-// Load the context for template processing
-func (c ContextService) GlobalContext(srv *gserver2.Server) {
+// GlobalContext loads the context for template processing
+func GlobalContext(srv *Server) {
 	srv.Context.Set("T", template)
 	srv.Context.Set("DOC", doc)
 	srv.Context.Set("DocLinks", docLinks)
