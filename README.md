@@ -3,6 +3,12 @@
 gserver is an experimental web server adapted to serve OGDL templates along with
 static content.
 
+## To do
+
+- Put allmost all code in library:
+  - config: .conf vs ini
+- Commercial or OSS main.go possible 
+
 ## Features
 
 - The file extension of (some) files below the document root is optional
