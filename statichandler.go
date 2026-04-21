@@ -27,7 +27,7 @@ func (srv *Server) StaticFileHandler(protect bool, fs *fn.FNode) http.HandlerFun
 		log.Println("StaticHandler", path, r.RemoteAddr)
 
 		if protect {
-			u := UserCookieValue(r)
+			u := srv.UserCookieValue(r)
 			if (u == "" || u == "nobody") && srv.DefaultUser == "" {
 				http.Error(w, "Need to log in to access this content", 401)
 				return

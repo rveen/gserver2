@@ -35,6 +35,7 @@ type Server struct {
 	Templates    map[string]*ogdl.Graph
 	ContextMu    sync.RWMutex
 	server       *http.Server
+	Secret       []byte // Used as key for encoding persistent user cookies
 }
 
 func NewWithConfig(host string, config, context *ogdl.Graph) (*Server, error) {

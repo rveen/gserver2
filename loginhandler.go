@@ -2,7 +2,6 @@ package gserver2
 
 import (
 	"crypto/md5"
-	"database/sql"
 	"encoding/hex"
 	"fmt"
 	"log"
@@ -14,7 +13,6 @@ import (
 	"github.com/go-ldap/ldap/v3"
 
 	auth "github.com/abbot/go-http-auth"
-	_ "modernc.org/sqlite"
 )
 
 // LoginAdapter handles "Login" and "Logout"
@@ -29,7 +27,7 @@ func (srv *Server) LoginAdapter(userdb string) func(http.Handler) http.Handler {
 	mw := func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-			userCookie := UserCookie()
+			userCookie := srv.UserCookie()
 
 			if r.FormValue("Logout") != "" {
 				sess := session2.Get(r)
@@ -108,13 +106,6 @@ func validateUser(user, pass, userdb string, srv *Server) (bool, string) {
 			pw := secrets(user, pass)
 			return auth.CheckSecret(pass, pw), ""
 		}
-
-	case "sqlite":
-
-		if srv.UserDb == nil {
-			srv.UserDb, _ = sql.Open("sqlite", "../users.db")
-		}
-		fallthrough
 
 	case "sql":
 

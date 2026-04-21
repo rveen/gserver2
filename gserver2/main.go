@@ -1,4 +1,4 @@
-// Copyright 2017-2022, Rolf Veen.
+// Copyright 2017-2026, Rolf Veen.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -64,6 +64,9 @@ func main() {
 		log.Println(err.Error())
 		return
 	}
+
+	// Used for secure cookies (CHANGE THIS)
+	srv.Secret = []byte("f8hk39o9mx0dmrn1pa39jfla39djm3f0")
 
 	go srv.WatchContext(".conf/context.ogdl")
 

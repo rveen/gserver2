@@ -77,7 +77,7 @@ func getSession(r *http.Request, w http.ResponseWriter, srv *Server) *ogdl.Graph
 	}
 
 	// If a user cookie is present, update 'user' in the context
-	user := UserCookieValue(r)
+	user := srv.UserCookieValue(r)
 	if user != "" && user != "-" {
 		context.Set("user", user)
 	}
@@ -178,8 +178,6 @@ func (r *Request) Get() error {
 
 	var err error
 
-	// log.Printf("URL.Path (0): %s\n", r.Path)
-
 	if r.HttpRequest.FormValue("m") == "raw" {
 		err = r.File.GetRaw(r.Path)
 	} else {
@@ -237,9 +235,8 @@ func (r *Request) Process(srv *Server) error {
 			r.File.Document.Context = r.Context
 			r.File.Content = []byte(r.File.Document.Html())
 			fallthrough
-		case "dir", "data", "log":
-			// log.Println("r.Process: ", r.File.Type)
 
+		case "dir", "data", "log":
 			r.Context.Set("path.content", string(r.File.Content))
 			r.Context.Set("path.data", r.File.Data)
 
@@ -303,20 +300,19 @@ func hasTplExtension(s string) bool {
 	return false
 }
 
-func UserCookie() *securecookie.Obj {
+func (srv *Server) UserCookie() *securecookie.Obj {
 
-	key := []byte("f8hk39o9mx0dmrn1pa39jfla39djm3f0")
-	userCookie := securecookie.MustNew("userid", key, securecookie.Params{
+	userCookie := securecookie.MustNew("userid", srv.Secret, securecookie.Params{
 		Path:   "/",
 		MaxAge: 0,
-		Secure: false, // cookie received with HTTP for testing purpose
+		Secure: false,
 	})
 	return userCookie
 }
 
-func UserCookieValue(r *http.Request) string {
+func (srv *Server) UserCookieValue(r *http.Request) string {
 
-	userCookie := UserCookie()
+	userCookie := srv.UserCookie()
 
 	b, err := userCookie.GetValue(nil, r)
 	if err != nil {
