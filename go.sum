@@ -57,8 +57,6 @@ github.com/rveen/electronics v0.0.0-20260105102148-dff2981f83b4 h1:8bZzsfUrq3XSw
 github.com/rveen/electronics v0.0.0-20260105102148-dff2981f83b4/go.mod h1:QiRHicKspUayu0NGE57bS3wk+8QgoX5cI4z9IsYyEyk=
 github.com/rveen/golib v0.0.0-20260421143343-6afd0812561a h1:HHbD+L6UZF5dGspiJSwzOJd0tyJUb4OXAcaVMwM7Bmo=
 github.com/rveen/golib v0.0.0-20260421143343-6afd0812561a/go.mod h1:RyHHeRWDUiusM0kAGeWdqpu2TBEXapnd8HwDbZ/3IOg=
-github.com/rveen/gserver2 v0.0.0-20260526094928-21c70fe7d9b3 h1:cUZlAz8rAQH+2mEljfkQNiAn8wijFPKsmLX3mnWlYxI=
-github.com/rveen/gserver2 v0.0.0-20260526094928-21c70fe7d9b3/go.mod h1:IBNosTw2dPF7bKY+fN5+27+Pr0lLcRowtD6pFrHD9Zs=
 github.com/rveen/margaid v0.0.0-20260526073250-2471c92c43ba h1:sREJeU9WZxNg45DtCym6EyHpwhwLd5WoR/2CpGtmceg=
 github.com/rveen/margaid v0.0.0-20260526073250-2471c92c43ba/go.mod h1:Y253vQ9CxwJtA92o/LG/G0RuCoPjYnaGth/zlQ4rcfU=
 github.com/rveen/ogdl v1.3.0 h1:O58jTC42SJo0UrhJh1aIis/gAizsbYq1z5Muil/GUt4=

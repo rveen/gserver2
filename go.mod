@@ -10,7 +10,6 @@ require (
 	github.com/go-ldap/ldap/v3 v3.4.13
 	github.com/rveen/electronics v0.0.0-20260105102148-dff2981f83b4
 	github.com/rveen/golib v0.0.0-20260421143343-6afd0812561a
-	github.com/rveen/gserver2 v0.0.0-20260526094928-21c70fe7d9b3
 	github.com/rveen/ogdl v1.3.0
 	github.com/rveen/session2 v0.0.0-20260526093831-b942cdc759c5
 )
